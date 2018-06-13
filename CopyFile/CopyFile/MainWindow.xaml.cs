@@ -1,21 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CopyFile
 {
@@ -24,7 +12,7 @@ namespace CopyFile
     /// </summary>
     public partial class MainWindow : Window
     {
-        string PathFrom, PathTo;
+        string PathFrom, PathTo, str;
         private BackgroundWorker backgroundWorker;
         public MainWindow()
         {
@@ -36,9 +24,11 @@ namespace CopyFile
         {
             OpenFileDialog dialog = new OpenFileDialog();
             //dialog.Filter = "all(*.*)|*.*";
-            dialog.Filter = "(*.rtf) | *.rtf | txt файлы(*.txt) | *.txt | (*.exe) | *.exe";
+            //dialog.Filter = "(*.rtf) | *.rtf | txt файлы(*.txt) | *.txt | (*.exe) | *.exe";
             if (dialog.ShowDialog() == true)
             {
+                str = dialog.SafeFileName;
+               // MessageBox.Show(str);
                 PathFrom = dialog.FileName;
                 TextFrom.Text = PathFrom;
             }
@@ -47,10 +37,11 @@ namespace CopyFile
         private void SelecTo()
         {
             SaveFileDialog dialog = new SaveFileDialog();
-            dialog.Filter = "(*.rtf) | *.rtf | txt файлы(*.txt) | *.txt | (*.exe) | *.exe";
+            //dialog.Filter = "(*.rtf) | *.rtf | txt файлы(*.txt) | *.txt | (*.exe) | *.exe";
+            dialog.FileName = str;
             if (dialog.ShowDialog() == true)
             {
-               
+                //dialog.FileName = str;
                 PathTo = dialog.FileName;
                 TextTo.Text = PathTo;
             }
